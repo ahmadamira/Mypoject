@@ -1,0 +1,22 @@
+CREATE USER 'clinic'@'localhost' IDENTIFIED VIA mysql_native_password USING '***';GRANT ALL PRIVILEGES ON *.* TO 'clinic'@'localhost' REQUIRE NONE WITH GRANT OPTION MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0;
+///////////////////////////////////////////
+CREATE TABLE `clinic`.`regestration` ( `username` TEXT NULL , `password` TEXT NULL , `level` INT NOT NULL , PRIMARY KEY (`username`(50))) ENGINE = InnoDB;
+///////////////////////////////////////////
+INSERT INTO `regestration` (`username`, `password`, `level`) VALUES ('omar', '123', '0');
+////////////////////////////////////////////
+INSERT INTO `patient` (`ID`, `Name`, `Address`, `Tele.NO`, `BirthDate`) VALUES ('1', 'khaled bostami', 'Nablus', '0595493758', '2001-05-03');
+/////////////////////////////////////////////
+CREATE TABLE `clinic`.`doctor` ( `ID` INT(11) NOT NULL AUTO_INCREMENT , `Name` VARCHAR(30) NOT NULL , `Specialty` VARCHAR(30) NOT NULL , `DepartmentName` VARCHAR(30) NOT NULL , `startTime` TIME NOT NULL , `endTime` TIME NOT NULL , `image` VARCHAR(50) NOT NULL , PRIMARY KEY (`ID`(11))) ENGINE = InnoDB;
+////////////////////////////////////////////
+ALTER TABLE `patient` ADD FOREIGN KEY (`Name`) REFERENCES `regestration`(`username`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+////////////////////////////////////////////
+TABLE `patient` DROP `Address`;
+////////////////////////////////////////////
+ALTER TABLE `doctor` ADD  FOREIGN KEY (`Name`) REFERENCES `regestration`(`username`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+/////////////////////////////////////////////
+ALTER TABLE `patient` ADD FOREIGN KEY (`Name`) REFERENCES `regestration`(`username`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+/////////////////////////////////////////////
+CREATE TABLE `clinic`.`appointment` ( `ID` INT NOT NULL AUTO_INCREMENT , `PID` INT NOT NULL , `AppDate` DATE NOT NULL , `DoctorName` TEXT NOT NULL , `DepartmentName` TEXT NOT NULL , `startAppoTime` TIME NOT NULL , `EndAppoTime` TIME NOT NULL , PRIMARY KEY (`ID`)) ENGINE = InnoDB;
+////////////////////////////////////////////
+CREATE TABLE `clinic`.`contactus` ( `ID` INT NOT NULL AUTO_INCREMENT , `Name` TEXT NOT NULL , `Emal` TEXT NOT NULL , `message` TEXT NOT NULL , PRIMARY KEY (`ID`)) ENGINE = InnoDB;
+
